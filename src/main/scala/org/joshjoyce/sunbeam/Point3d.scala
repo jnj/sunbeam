@@ -1,6 +1,5 @@
 package org.joshjoyce.sunbeam
 
-import org.joshjoyce.sunbeam._
 import scala.math._
 
 object Point3d {
@@ -10,9 +9,11 @@ object Point3d {
 
 case class Point3d(x: Real, y: Real, z: Real) {
   def +(v: Point3d) = Point3d(x + v.x, y + v.y, z + v.z)
+
+  def +(v: Vector3d) = Point3d(x + v.x, y + v.y, z = v.z)
   
-  def -(v: Point3d) = Point3d(x - v.x, y - v.y, z - v.z)
-  
+  def -(v: Point3d) = Vector3d(x - v.x, y - v.y, z - v.z)
+
   def -(v: Vector3d) = Vector3d(x - v.x, y - v.y, z - v.z)
   
   def *(r: Real) = Point3d(r * x, r * y, r * z)

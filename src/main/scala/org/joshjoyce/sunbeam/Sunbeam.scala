@@ -2,8 +2,7 @@ package org.joshjoyce.sunbeam
 
 import javax.swing.JFrame
 
-case class Point(x: Double, y: Double, z: Double)
-case class Ray(origin: Point, direction: Vector3d)
+case class Ray(origin: Point3d, direction: Vector3d)
 
 object Sunbeam {
   def main(args: Array[String]) {
