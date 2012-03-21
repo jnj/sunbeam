@@ -1,6 +1,6 @@
-package org.joshjoyce.stingray
+package org.joshjoyce.sunbeam
 
-import org.joshjoyce.stingray._
+import org.joshjoyce.sunbeam._
 import scala.math._
 
 object Point3d {

@@ -1,4 +1,4 @@
-package org.joshjoyce.stingray
+package org.joshjoyce.sunbeam
 import java.awt.Color
 import java.awt.Graphics
 import java.awt.Graphics2D

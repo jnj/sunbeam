@@ -1,13 +1,11 @@
-package org.joshjoyce.stingray
+package org.joshjoyce.sunbeam
 
 import javax.swing.JFrame
-import scala.math._
 
 case class Point(x: Double, y: Double, z: Double)
-case class Direction(x: Double, y: Double, z: Double)
-case class Ray(origin: Point, direction: Direction)
+case class Ray(origin: Point, direction: Vector3d)
 
-object Stingray {
+object Sunbeam {
   def main(args: Array[String]) {
     val frame = new JFrame
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)

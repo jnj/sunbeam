@@ -1,6 +1,4 @@
-package org.joshjoyce.stingray
-
-import org.joshjoyce.stingray._
+package org.joshjoyce.sunbeam
 
 object Normal {
   def apply(p: Point3d): Normal = Normal(p.x, p.y, p.z)
@@ -15,3 +13,5 @@ case class Normal(x: Real, y: Real, z: Real) {
   def dot(n: Normal) = n.x * x + n.y * y + n.z * z
   
   def *(a: Real) = Normal(a * x, a * y, a * z)
+
+}

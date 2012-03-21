@@ -1,5 +1,5 @@
 package org.joshjoyce
 
-package object stingray {
+package object sunbeam {
   type Real = Double
 }
