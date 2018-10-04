@@ -13,6 +13,10 @@ public class Vector3d {
         this.z = z;
     }
 
+    public Vector3d negate() {
+        return new Vector3d(-x, -y, -z);
+    }
+
     public Vector3d add(Vector3d v) {
         return new Vector3d(x + v.x, y + v.y, z + v.z);
     }
@@ -33,8 +37,12 @@ public class Vector3d {
         return scale(1 / d);
     }
 
-    public double norm() {
+    public double magnitude() {
         return Math.sqrt(normSquared());
+    }
+
+    public Vector3d normalize() {
+        return divide(magnitude());
     }
 
     public double normSquared() {
@@ -66,5 +74,13 @@ public class Vector3d {
     @Override
     public int hashCode() {
         return Objects.hash(x, y, z);
+    }
+
+    @Override
+    public String toString() {
+        return "[" + x +
+               ", " + y +
+               ", " + z +
+               ']';
     }
 }
