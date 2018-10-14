@@ -23,6 +23,18 @@ public class Matrix {
         this.elements = new double[width * height];
     }
 
+    public Matrix transpose() {
+        var t = new Matrix(height, width);
+
+        for (var row = 0; row < height; row++) {
+            for (var col = 0; col < width; col++) {
+                t.set(col, row, get(row, col));
+            }
+        }
+
+        return t;
+    }
+
     public void setRow(int row, double[] vals) {
         int index = row * width;
         System.arraycopy(vals, 0, elements, index, width);

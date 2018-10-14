@@ -69,6 +69,23 @@ public class MatrixTest {
         assertEquals(a, b);
     }
 
+    @Test
+    public void transpose() {
+        var a = new Matrix(4, 3);
+        a.setRow(0, new double[]{1, 2, 3, 4});
+        a.setRow(1, new double[]{2, 4, 4, 2});
+        a.setRow(2, new double[]{8, 6, 4, 1});
+
+        var b = new Matrix(3, 4);
+        b.setRow(0, new double[]{1, 2, 8});
+        b.setRow(1, new double[]{2, 4, 6});
+        b.setRow(2, new double[]{3, 4, 4});
+        b.setRow(3, new double[]{4, 2, 1});
+
+        var t = a.transpose();
+        assertEquals(b, t);
+    }
+
     private void assertRowEquals(Matrix c, int row, double[] doubles) {
         for (int j = 0; j < doubles.length; j++) {
             var d = doubles[j];
