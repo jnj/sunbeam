@@ -32,9 +32,14 @@ public class Canvas extends JPanel {
 
     public void setPixel(int x, int y, int rgb) {
         var ty = Math.max(heightPixels - y - 1, 0);
-//        System.out.println(String.format("plotting pixel at (%d,%d)", x, ty));
-        image.setRGB(x, ty, rgb);
-        repaint();
+        if (checkBounds(x, ty)) {
+            image.setRGB(x, ty, rgb);
+            repaint();
+        }
+    }
+
+    private boolean checkBounds(int x, int y) {
+        return x >= 0 && y >= 0 && x < widthPixels && y < heightPixels;
     }
 
     @Override
