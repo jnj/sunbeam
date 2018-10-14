@@ -30,10 +30,11 @@ public class Canvas extends JPanel {
         image = new BufferedImage(widthPixels, heightPixels, BufferedImage.TYPE_INT_RGB);
     }
 
-    public void setPixel(int x, int y, int rgb) {
+    public void setPixel(int x, int y, RgbColor rgbColor) {
+        var color = rgbColor.toColor();
         var ty = Math.max(heightPixels - y - 1, 0);
         if (checkBounds(x, ty)) {
-            image.setRGB(x, ty, rgb);
+            image.setRGB(x, ty, color.getRGB());
             repaint();
         }
     }

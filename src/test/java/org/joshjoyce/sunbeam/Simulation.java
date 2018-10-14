@@ -1,16 +1,14 @@
 package org.joshjoyce.sunbeam;
 
-import java.awt.*;
-
 public class Simulation {
     public static void main(String[] args) {
         Canvas canvas = Canvas.create(900, 550);
         var p = new Projectile(new Point3d(0, 1, 0), new Vector3d(1, 1.8, 0).normalize().scale(11.25));
         var w = new SimWorld(new Vector3d(-0.01, 0, 0), new Vector3d(0, -0.1, 0));
-
+        var yellow = new RgbColor(1, 1, 0);
         while (p.point.y >= 0) {
             p = tick(w, p);
-            canvas.setPixel((int) p.point.x, (int) p.point.y, Color.YELLOW.getRGB());
+            canvas.setPixel((int) p.point.x, (int) p.point.y, yellow);
         }
     }
 
