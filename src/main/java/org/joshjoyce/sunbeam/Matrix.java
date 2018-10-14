@@ -7,6 +7,16 @@ public class Matrix {
     private final int height;
     private final double[] elements;
 
+    public static Matrix identity(int length) {
+        var m = new Matrix(length, length);
+
+        for (var i = 0; i < length; i++) {
+            m.set(i, i, 1);
+        }
+
+        return m;
+    }
+
     public Matrix(int width, int height) {
         this.width = width;
         this.height = height;

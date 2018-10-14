@@ -57,6 +57,18 @@ public class MatrixTest {
         assertEquals(new Vector(new double[]{18, 24, 33, 1}), v);
     }
 
+    @Test
+    public void identityMultiplication() {
+        var a = new Matrix(4, 4);
+        a.setRow(0, new double[]{1, 2, 3, 4});
+        a.setRow(1, new double[]{2, 4, 4, 2});
+        a.setRow(2, new double[]{8, 6, 4, 1});
+        a.setRow(3, new double[]{0, 0, 0, 1});
+        var i = Matrix.identity(4);
+        var b = a.multiply(i);
+        assertEquals(a, b);
+    }
+
     private void assertRowEquals(Matrix c, int row, double[] doubles) {
         for (int j = 0; j < doubles.length; j++) {
             var d = doubles[j];
