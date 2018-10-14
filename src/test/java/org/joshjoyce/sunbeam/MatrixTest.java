@@ -100,6 +100,19 @@ public class MatrixTest {
         assertEquals(17, m.determinant(), 1e-9);
     }
 
+    @Test
+    public void subMatrix1() {
+        var m = new Matrix(3, 3);
+        m.setRow(0, new double[]{1, 5, 0});
+        m.setRow(1, new double[]{-3, 2, 7});
+        m.setRow(2, new double[]{0, 6, -3});
+        var sub = m.subMatrix(0, 2);
+        assertEquals(2, sub.height());
+        assertEquals(2, sub.width());
+        assertRowEquals(sub, 0, new double[]{-3, 2});
+        assertRowEquals(sub, 1, new double[]{0, 6});
+    }
+
     private void assertRowEquals(Matrix c, int row, double[] doubles) {
         for (int j = 0; j < doubles.length; j++) {
             var d = doubles[j];

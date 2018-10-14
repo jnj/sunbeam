@@ -127,8 +127,37 @@ public class Matrix {
         return new Vector(product);
     }
 
-    double determinant() {
+    public double determinant() {
         assert width == height && height == 2;
         return elements[0] * elements[3] - elements[1] * elements[2];
+    }
+
+    public Matrix subMatrix(int row, int col) {
+        var m = new Matrix(width - 1, height - 1);
+
+        for (int r = 0; r < height; r++) {
+            for (int c = 0; c < height; c++) {
+                double x = get(r, c);
+                if (c < col && r < row) {
+                    m.set(r, c, x);
+                } else if (c < col && r > row) {
+                    m.set(r - 1, c, x);
+                } else if (c > col && r < row) {
+                    m.set(r, c - 1, x);
+                } else if (c > col && r > row) {
+                    m.set(r - 1, c - 1, x);
+                }
+            }
+        }
+
+        return m;
+    }
+
+    int height() {
+        return this.height;
+    }
+
+    int width() {
+        return this.width;
     }
 }
