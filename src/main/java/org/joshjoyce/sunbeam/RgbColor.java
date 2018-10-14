@@ -2,22 +2,22 @@ package org.joshjoyce.sunbeam;
 
 import java.awt.*;
 
-public class RgbColor extends Vector3d {
+public class RgbColor extends Vector {
 
     public RgbColor(double r, double g, double b) {
-        super(r, g, b);
+        super(new double[]{r, g, b});
     }
 
     public double r() {
-        return x;
+        return components[0];
     }
 
     public double g() {
-        return y;
+        return components[1];
     }
 
     public double b() {
-        return z;
+        return components[2];
     }
 
     public RgbColor hadamard(RgbColor that) {
@@ -25,7 +25,7 @@ public class RgbColor extends Vector3d {
     }
 
     public Color toColor() {
-        return new Color((float) x,(float) y, (float) z);
+        return new Color((float) r(),(float) g(), (float) b());
     }
 
     @Override

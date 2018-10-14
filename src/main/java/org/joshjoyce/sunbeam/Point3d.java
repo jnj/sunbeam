@@ -7,12 +7,8 @@ public class Point3d {
     public final double y;
     public final double z;
 
-    public static Point3d fromVector3d(Vector3d v) {
-        return new Point3d(v.x, v.y, v.z);
-    }
-
-    public static Point3d fromNormal(Normal n) {
-        return new Point3d(n.x, n.y, n.z);
+    public static Point3d fromVector3d(Vector v) {
+        return new Point3d(v.components[0], v.components[1], v.components[2]);
     }
 
     public Point3d(double x, double y, double z) {
@@ -25,24 +21,20 @@ public class Point3d {
         return new Point3d(x + p.x, y + p.y, z + p.z);
     }
 
-    public Point3d add(Vector3d p) {
-        return new Point3d(x + p.x, y + p.y, z + p.z);
+    public Point3d add(Vector p) {
+        return new Point3d(x + p.components[0], y + p.components[1], z + p.components[2]);
     }
 
-    public Point3d subtract(Vector3d p) {
-        return new Point3d(x - p.x, y - p.y, z - p.z);
+    public Point3d subtract(Vector p) {
+        return new Point3d(x - p.components[0], y - p.components[1], z - p.components[2]);
     }
 
-    public double dot(Normal n) {
-        return x * n.x + y * n.y + z * n.z;
+    public double dot(Vector n) {
+        return x * n.components[0] + y * n.components[1] + z * n.components[2];
     }
 
-    public double dot(Vector3d n) {
-        return x * n.x + y * n.y + z * n.z;
-    }
-
-    public Vector3d subtract(Point3d p) {
-        return new Vector3d(x - p.x, y - p.y, z - p.z);
+    public Vector subtract(Point3d p) {
+        return new Vector(new double[]{x - p.x, y - p.y, z - p.z});
     }
 
     public Point3d scale(double d) {

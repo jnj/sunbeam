@@ -69,7 +69,7 @@ public class Matrix {
         return buf.toString();
     }
 
-    Matrix multiply(Matrix b) {
+    public Matrix multiply(Matrix b) {
         var product = new Matrix(b.width, height);
 
         for (var row = 0; row < height; row++) {
@@ -85,5 +85,23 @@ public class Matrix {
         }
 
         return product;
+    }
+
+    public Vector multiply(Vector b) {
+        var product = new double[b.size()];
+
+        for (int i = 0; i < product.length; i++) {
+            double sum = 0;
+
+            for (int j = 0; j < width; j++) {
+                double v = get(i, j);
+                double c = b.components[j];
+                sum += v * c;
+            }
+
+            product[i] = sum;
+        }
+
+        return new Vector(product);
     }
 }

@@ -5,9 +5,6 @@ import java.awt.*;
 
 public class Sunbeam {
     public static void main(String[] args) {
-        World w = new World();
-        w.build();
-        w.renderScene();
     }
 }
 
