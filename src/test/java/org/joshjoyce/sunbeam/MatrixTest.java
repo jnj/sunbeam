@@ -86,6 +86,20 @@ public class MatrixTest {
         assertEquals(b, t);
     }
 
+    @Test
+    public void idTranspose() {
+        var i = Matrix.identity(5);
+        assertEquals(i, i.transpose());
+    }
+
+    @Test
+    public void twoByTwoDeterminant() {
+        var m = new Matrix(2, 2);
+        m.setRow(0, new double[]{1, 5});
+        m.setRow(1, new double[]{-3, 2});
+        assertEquals(17, m.determinant(), 1e-9);
+    }
+
     private void assertRowEquals(Matrix c, int row, double[] doubles) {
         for (int j = 0; j < doubles.length; j++) {
             var d = doubles[j];

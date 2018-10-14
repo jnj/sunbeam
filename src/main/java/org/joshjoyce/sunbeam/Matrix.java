@@ -126,4 +126,9 @@ public class Matrix {
 
         return new Vector(product);
     }
+
+    double determinant() {
+        assert width == height && height == 2;
+        return elements[0] * elements[3] - elements[1] * elements[2];
+    }
 }
