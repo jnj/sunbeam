@@ -138,6 +138,7 @@ public class Matrix {
         for (int r = 0; r < height; r++) {
             for (int c = 0; c < height; c++) {
                 double x = get(r, c);
+
                 if (c < col && r < row) {
                     m.set(r, c, x);
                 } else if (c < col && r > row) {

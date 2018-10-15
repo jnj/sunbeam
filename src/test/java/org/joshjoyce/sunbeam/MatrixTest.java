@@ -113,6 +113,21 @@ public class MatrixTest {
         assertRowEquals(sub, 1, new double[]{0, 6});
     }
 
+    @Test
+    public void subMatrix2() {
+        var m = new Matrix(4, 4);
+        m.setRow(0, new double[]{-6, 1, 1, 6});
+        m.setRow(1, new double[]{-8, 5, 8, 6});
+        m.setRow(2, new double[]{-1, 0, 8, 2});
+        m.setRow(3, new double[]{-7, 1, -1, 1});
+        var sub = m.subMatrix(2, 1);
+        assertEquals(3, sub.width());
+        assertEquals(3, sub.height());
+        assertRowEquals(sub, 0, new double[]{-6, 1, 6});
+        assertRowEquals(sub, 1, new double[]{-8, 8, 6});
+        assertRowEquals(sub, 2, new double[]{-7, -1, 1});
+    }
+
     private void assertRowEquals(Matrix c, int row, double[] doubles) {
         for (int j = 0; j < doubles.length; j++) {
             var d = doubles[j];
