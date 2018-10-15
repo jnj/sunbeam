@@ -139,6 +139,16 @@ public class MatrixTest {
         assertEquals(25, m.minor(1, 0), 1e-9);
     }
 
+    @Test
+    public void cofactor() {
+        var m = new Matrix(3, 3);
+        m.setRow(0, new double[]{3, 5, 0});
+        m.setRow(1, new double[]{1, -1, -7});
+        m.setRow(2, new double[]{6, -1, 5});
+        assertEquals(-12, m.cofactor(0, 0), 1e-9);
+        assertEquals(-25, m.cofactor(1, 0), 1e-9);
+    }
+
     private void assertRowEquals(Matrix c, int row, double[] doubles) {
         for (int j = 0; j < doubles.length; j++) {
             var d = doubles[j];

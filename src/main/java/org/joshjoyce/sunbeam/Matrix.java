@@ -165,4 +165,13 @@ public class Matrix {
     double minor(int row, int col) {
         return subMatrix(row, col).determinant();
     }
+
+    double cofactor(int row, int col) {
+        var m = minor(row, col);
+        if (((row + col) & 1) != 0) {
+            return -m;
+        }
+
+        return m;
+    }
 }
