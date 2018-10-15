@@ -128,6 +128,17 @@ public class MatrixTest {
         assertRowEquals(sub, 2, new double[]{-7, -1, 1});
     }
 
+    @Test
+    public void minor() {
+        var m = new Matrix(3, 3);
+        m.setRow(0, new double[]{3, 5, 0});
+        m.setRow(1, new double[]{2, -1, -7});
+        m.setRow(2, new double[]{6, -1, 5});
+        var b = m.subMatrix(1, 0);
+        assertEquals(25, b.determinant(), 1e-9);
+        assertEquals(25, m.minor(1, 0), 1e-9);
+    }
+
     private void assertRowEquals(Matrix c, int row, double[] doubles) {
         for (int j = 0; j < doubles.length; j++) {
             var d = doubles[j];

@@ -161,4 +161,8 @@ public class Matrix {
     int width() {
         return this.width;
     }
+
+    double minor(int row, int col) {
+        return subMatrix(row, col).determinant();
+    }
 }
