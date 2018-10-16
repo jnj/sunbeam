@@ -255,7 +255,13 @@ public class MatrixTest {
         for (int i = 0; i < 4; i++) {
             assertRowEquals(aAgain, i, 1e-5, a.rowArray(i));
         }
+    }
 
+    @Test
+    public void invertId() {
+        var m = Matrix.identity(4);
+        var i = m.invert();
+        System.out.println(i);
     }
 
     private void assertRowEquals(Matrix c, int row, double eps, double... doubles) {
