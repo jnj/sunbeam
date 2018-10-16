@@ -192,4 +192,32 @@ public class Matrix {
         var det = determinant();
         return det > 0 || det < 0;
     }
+
+    public Matrix invert() {
+        var det = determinant();
+        var cofactors = new Matrix(width, height);
+
+        for (var row = 0; row < height; row++) {
+            for (var col = 0; col < width; col++) {
+                cofactors.set(row, col, cofactor(row, col));
+            }
+        }
+
+        var t = cofactors.transpose();
+        t.scale(1 / det);
+
+        return t;
+    }
+
+    private void scale(double f) {
+        for (var i = 0; i < elements.length; i++) {
+            elements[i] *= f;
+        }
+    }
+
+    double[] rowArray(int i) {
+        var a = new double[width];
+        System.arraycopy(elements, i * width, a, 0, a.length);
+        return a;
+    }
 }

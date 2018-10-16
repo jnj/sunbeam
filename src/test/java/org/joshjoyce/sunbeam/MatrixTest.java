@@ -2,7 +2,10 @@ package org.joshjoyce.sunbeam;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
@@ -24,26 +27,29 @@ public class MatrixTest {
         System.out.println(m.toString());
     }
 
-    @Test
-    public void matrixMultiplication() {
-        var a = new Matrix(4, 4);
-        var b = new Matrix(4, 4);
+    private static Matrix fromString(String block) {
+        List<double[]> nums = new ArrayList<>();
+        var lines = block.lines().map(String::trim).collect(Collectors.toList());
 
-        a.setRow(0, 1, 2, 3, 4);
-        a.setRow(1, 2, 3, 4, 5);
-        a.setRow(2, 3, 4, 5, 6);
-        a.setRow(3, 4, 5, 6, 7);
+        for (var l : lines) {
+            var parts = l.split("\\s+");
+            double d[] = new double[parts.length];
 
-        b.setRow(0, 0, 1, 2, 4);
-        b.setRow(1, 1, 2, 4, 8);
-        b.setRow(2, 2, 4, 8, 16);
-        b.setRow(3, 4, 8, 16, 32);
+            for (int i = 0; i < d.length; i++) {
+                d[i] = Double.parseDouble(parts[i]);
+            }
 
-        var c = a.multiply(b);
-        assertRowEquals(c, 0, new double[]{24, 49, 98, 196});
-        assertRowEquals(c, 1, new double[]{31, 64, 128, 256});
-        assertRowEquals(c, 2, new double[]{38, 79, 158, 316});
-        assertRowEquals(c, 3, new double[]{45, 94, 188, 376});
+            nums.add(d);
+        }
+
+        var m = new Matrix(nums.get(0).length, nums.size());
+        int r = 0;
+
+        for (double[] row : nums) {
+            m.setRow(r++, row);
+        }
+
+        return m;
     }
 
     @Test
@@ -103,6 +109,28 @@ public class MatrixTest {
     }
 
     @Test
+    public void matrixMultiplication() {
+        var a = new Matrix(4, 4);
+        var b = new Matrix(4, 4);
+
+        a.setRow(0, 1, 2, 3, 4);
+        a.setRow(1, 2, 3, 4, 5);
+        a.setRow(2, 3, 4, 5, 6);
+        a.setRow(3, 4, 5, 6, 7);
+
+        b.setRow(0, 0, 1, 2, 4);
+        b.setRow(1, 1, 2, 4, 8);
+        b.setRow(2, 2, 4, 8, 16);
+        b.setRow(3, 4, 8, 16, 32);
+
+        var c = a.multiply(b);
+        assertRowEquals(c, 0, EPS, 24, 49, 98, 196);
+        assertRowEquals(c, 1, EPS, 31, 64, 128, 256);
+        assertRowEquals(c, 2, EPS, 38, 79, 158, 316);
+        assertRowEquals(c, 3, EPS, 45, 94, 188, 376);
+    }
+
+    @Test
     public void subMatrix1() {
         var m = new Matrix(3, 3);
         m.setRow(0, 1, 5, 0);
@@ -111,23 +139,8 @@ public class MatrixTest {
         var sub = m.subMatrix(0, 2);
         assertEquals(2, sub.height());
         assertEquals(2, sub.width());
-        assertRowEquals(sub, 0, new double[]{-3, 2});
-        assertRowEquals(sub, 1, new double[]{0, 6});
-    }
-
-    @Test
-    public void subMatrix2() {
-        var m = new Matrix(4, 4);
-        m.setRow(0, -6, 1, 1, 6);
-        m.setRow(1, -8, 5, 8, 6);
-        m.setRow(2, -1, 0, 8, 2);
-        m.setRow(3, -7, 1, -1, 1);
-        var sub = m.subMatrix(2, 1);
-        assertEquals(3, sub.width());
-        assertEquals(3, sub.height());
-        assertRowEquals(sub, 0, new double[]{-6, 1, 6});
-        assertRowEquals(sub, 1, new double[]{-8, 8, 6});
-        assertRowEquals(sub, 2, new double[]{-7, -1, 1});
+        assertRowEquals(sub, 0, EPS, -3, 2);
+        assertRowEquals(sub, 1, EPS, 0, 6);
     }
 
     @Test
@@ -193,11 +206,63 @@ public class MatrixTest {
         assertFalse(m.isInvertible());
     }
 
-    private void assertRowEquals(Matrix c, int row, double[] doubles) {
+    @Test
+    public void subMatrix2() {
+        var m = new Matrix(4, 4);
+        m.setRow(0, -6, 1, 1, 6);
+        m.setRow(1, -8, 5, 8, 6);
+        m.setRow(2, -1, 0, 8, 2);
+        m.setRow(3, -7, 1, -1, 1);
+        var sub = m.subMatrix(2, 1);
+        assertEquals(3, sub.width());
+        assertEquals(3, sub.height());
+        assertRowEquals(sub, 0, EPS, -6, 1, 6);
+        assertRowEquals(sub, 1, EPS, -8, 8, 6);
+        assertRowEquals(sub, 2, EPS, -7, -1, 1);
+    }
+
+    @Test
+    public void invert() {
+        var m = fromString(
+                " -5  2  6 -8 \n" +
+                "  1 -5  1  8 \n" +
+                "  7  7 -6 -7 \n" +
+                "  1 -3  7  4"
+        );
+        var inverted = m.invert();
+        assertRowEquals(inverted, 0, 1e-5, 0.21805, 0.45113, 0.24060, -0.04511);
+        assertRowEquals(inverted, 1, 1e-5, -0.80827, -1.45677, -0.44361, 0.52068);
+        assertRowEquals(inverted, 2, 1e-5, -0.07895, -0.22368, -0.05263, 0.19737);
+        assertRowEquals(inverted, 3, 1e-5, -0.52256, -0.81391, -0.30075, 0.30639);
+
+        var a = fromString(
+                " 3  -9  7  3 \n" +
+                " 3  -8  2  -9 \n" +
+                " -4  4  4  1 \n" +
+                " -6  5  -1  1 "
+        );
+
+        var b = fromString(
+                " 8 2 2 2 \n" +
+                " 3 -1 7 0 \n" +
+                " 7 0 5 4 \n" +
+                " 6  -2  0  5 "
+        );
+
+        var c = a.multiply(b);
+        var aAgain = c.multiply(b.invert());
+
+        for (int i = 0; i < 4; i++) {
+            assertRowEquals(aAgain, i, 1e-5, a.rowArray(i));
+        }
+
+    }
+
+    private void assertRowEquals(Matrix c, int row, double eps, double... doubles) {
         for (int j = 0; j < doubles.length; j++) {
             var d = doubles[j];
             var x = c.get(row, j);
-            assertEquals("(" + row + ", " + j + ")", d, x, EPS);
+            assertEquals("(" + row + ", " + j + ")", d, x, eps);
         }
     }
 }
