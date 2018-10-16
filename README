@@ -1,2 +1,1 @@
-A ray tracer written in Scala. This is adapted from the code in
-the book, Ray Tracing from the Ground Up, by Kevin Suffern, 2007.
+A ray tracer written in Java.
