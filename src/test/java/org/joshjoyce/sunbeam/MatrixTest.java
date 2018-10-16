@@ -163,6 +163,16 @@ public class MatrixTest {
         assertEquals(-196, m.determinant(), EPS);
     }
 
+    @Test
+    public void determinant4x4() {
+        var m = new Matrix(4, 4);
+        m.setRow(0, -2, -8, 3, 5);
+        m.setRow(1, -3, 1, 7, 3);
+        m.setRow(2, 1, 2, -9, 6);
+        m.setRow(3, -6, 7, 7, -9);
+        assertEquals(-4071, m.determinant(), EPS);
+    }
+
     private void assertRowEquals(Matrix c, int row, double[] doubles) {
         for (int j = 0; j < doubles.length; j++) {
             var d = doubles[j];

@@ -24,6 +24,7 @@ public class Matrix {
     }
 
     public Matrix transpose() {
+        //noinspection SuspiciousNameCombination
         var t = new Matrix(height, width);
 
         for (var row = 0; row < height; row++) {
@@ -36,6 +37,7 @@ public class Matrix {
     }
 
     public void setRow(int row, double... vals) {
+        assert vals.length == width;
         int index = row * width;
         System.arraycopy(vals, 0, elements, index, width);
     }
