@@ -35,7 +35,7 @@ public class Matrix {
         return t;
     }
 
-    public void setRow(int row, double[] vals) {
+    public void setRow(int row, double... vals) {
         int index = row * width;
         System.arraycopy(vals, 0, elements, index, width);
     }
