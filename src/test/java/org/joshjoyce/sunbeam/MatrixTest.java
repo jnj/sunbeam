@@ -8,6 +8,8 @@ import static org.junit.Assert.assertEquals;
 
 public class MatrixTest {
 
+    public static final double EPS = 1e-9;
+
     @Test
     public void asString() {
         var m = new Matrix(3, 3);
@@ -97,7 +99,7 @@ public class MatrixTest {
         var m = new Matrix(2, 2);
         m.setRow(0, new double[]{1, 5});
         m.setRow(1, new double[]{-3, 2});
-        assertEquals(17, m.determinant(), 1e-9);
+        assertEquals(17, m.determinant(), EPS);
     }
 
     @Test
@@ -135,8 +137,8 @@ public class MatrixTest {
         m.setRow(1, new double[]{2, -1, -7});
         m.setRow(2, new double[]{6, -1, 5});
         var b = m.subMatrix(1, 0);
-        assertEquals(25, b.determinant(), 1e-9);
-        assertEquals(25, m.minor(1, 0), 1e-9);
+        assertEquals(25, b.determinant(), EPS);
+        assertEquals(25, m.minor(1, 0), EPS);
     }
 
     @Test
@@ -145,15 +147,27 @@ public class MatrixTest {
         m.setRow(0, new double[]{3, 5, 0});
         m.setRow(1, new double[]{1, -1, -7});
         m.setRow(2, new double[]{6, -1, 5});
-        assertEquals(-12, m.cofactor(0, 0), 1e-9);
-        assertEquals(-25, m.cofactor(1, 0), 1e-9);
+        assertEquals(-12, m.cofactor(0, 0), EPS);
+        assertEquals(-25, m.cofactor(1, 0), EPS);
+    }
+
+    @Test
+    public void determinant() {
+        var m = new Matrix(3, 3);
+        m.setRow(0, new double[]{1, 2, 6});
+        m.setRow(1, new double[]{-5, 8, -4});
+        m.setRow(2, new double[]{2, 6, 4});
+        assertEquals(56, m.cofactor(0, 0), EPS);
+        assertEquals(12, m.cofactor(0, 1), EPS);
+        assertEquals(-46, m.cofactor(0, 2), EPS);
+        assertEquals(-196, m.determinant(), EPS);
     }
 
     private void assertRowEquals(Matrix c, int row, double[] doubles) {
         for (int j = 0; j < doubles.length; j++) {
             var d = doubles[j];
             var x = c.get(row, j);
-            assertEquals("(" + row + ", " + j + ")", d, x, 1e-9);
+            assertEquals("(" + row + ", " + j + ")", d, x, EPS);
         }
     }
 }

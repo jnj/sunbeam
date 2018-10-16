@@ -128,8 +128,19 @@ public class Matrix {
     }
 
     public double determinant() {
-        assert width == height && height == 2;
-        return elements[0] * elements[3] - elements[1] * elements[2];
+        if (width == 2 && height == 2) {
+            return elements[0] * elements[3] - elements[1] * elements[2];
+        } else {
+            var sum = 0D;
+
+            for (int c = 0; c < width; c++) {
+                double elem = elements[c];
+                double cof = cofactor(0, c);
+                sum += (elem * cof);
+            }
+
+            return sum;
+        }
     }
 
     public Matrix subMatrix(int row, int col) {
