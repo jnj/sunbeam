@@ -7,6 +7,12 @@ public class Matrix {
     private final int height;
     private final double[] elements;
 
+    public Matrix(int width, int height) {
+        this.width = width;
+        this.height = height;
+        this.elements = new double[width * height];
+    }
+
     public static Matrix identity(int length) {
         var m = new Matrix(length, length);
 
@@ -15,12 +21,6 @@ public class Matrix {
         }
 
         return m;
-    }
-
-    public Matrix(int width, int height) {
-        this.width = width;
-        this.height = height;
-        this.elements = new double[width * height];
     }
 
     public Matrix transpose() {
@@ -167,24 +167,29 @@ public class Matrix {
         return m;
     }
 
-    int height() {
+    public int height() {
         return this.height;
     }
 
-    int width() {
+    public int width() {
         return this.width;
     }
 
-    double minor(int row, int col) {
+    public double minor(int row, int col) {
         return subMatrix(row, col).determinant();
     }
 
-    double cofactor(int row, int col) {
+    public double cofactor(int row, int col) {
         var m = minor(row, col);
         if (((row + col) & 1) != 0) {
             return -m;
         }
 
         return m;
+    }
+
+    public boolean isInvertible() {
+        var det = determinant();
+        return det > 0 || det < 0;
     }
 }

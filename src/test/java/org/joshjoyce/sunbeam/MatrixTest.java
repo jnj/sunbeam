@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import java.util.Random;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class MatrixTest {
 
@@ -171,6 +171,26 @@ public class MatrixTest {
         m.setRow(2, 1, 2, -9, 6);
         m.setRow(3, -6, 7, 7, -9);
         assertEquals(-4071, m.determinant(), EPS);
+    }
+
+    @Test
+    public void invertible() {
+        var m = new Matrix(4, 4);
+        m.setRow(0, 6, 4, 4, 4);
+        m.setRow(1, 5, 5, 7, 6);
+        m.setRow(2, 4, -9, 3, -7);
+        m.setRow(3, 9, 1, 7, -6);
+        assertTrue(m.isInvertible());
+    }
+
+    @Test
+    public void notInvertible() {
+        var m = new Matrix(4, 4);
+        m.setRow(0, -4, 2, -2, -3);
+        m.setRow(1, 9, 6, 2, 6);
+        m.setRow(2, 0, -5, 1, -5);
+        m.setRow(3, 0, 0, 0, 0);
+        assertFalse(m.isInvertible());
     }
 
     private void assertRowEquals(Matrix c, int row, double[] doubles) {
