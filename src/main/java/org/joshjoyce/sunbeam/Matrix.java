@@ -149,7 +149,7 @@ public class Matrix {
         var m = new Matrix(width - 1, height - 1);
 
         for (int r = 0; r < height; r++) {
-            for (int c = 0; c < height; c++) {
+            for (int c = 0; c < width; c++) {
                 double x = get(r, c);
 
                 if (c < col && r < row) {
