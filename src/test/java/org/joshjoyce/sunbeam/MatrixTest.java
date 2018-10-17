@@ -345,6 +345,39 @@ public class MatrixTest {
         assertPoint3d(full, -1, 0, 0);
     }
 
+    @Test
+    public void shearing() {
+        var m = Matrix.shear(1, 0, 0, 0, 0, 0);
+        var p = new Point3d(2, 3, 4);
+        var r = m.multiply(p);
+        assertPoint3d(r, 5, 3, 4);
+
+        m = Matrix.shear(0, 1, 0, 0, 0, 0);
+        p = new Point3d(2, 3, 4);
+        r = m.multiply(p);
+        assertPoint3d(r, 6, 3, 4);
+
+        m = Matrix.shear(0, 0, 1, 0, 0, 0);
+        p = new Point3d(2, 3, 4);
+        r = m.multiply(p);
+        assertPoint3d(r, 2, 5, 4);
+
+        m = Matrix.shear(0, 0, 0, 1, 0, 0);
+        p = new Point3d(2, 3, 4);
+        r = m.multiply(p);
+        assertPoint3d(r, 2, 7, 4);
+
+        m = Matrix.shear(0, 0, 0, 0, 1, 0);
+        p = new Point3d(2, 3, 4);
+        r = m.multiply(p);
+        assertPoint3d(r, 2, 3, 6);
+
+        m = Matrix.shear(0, 0, 0, 0, 0, 1);
+        p = new Point3d(2, 3, 4);
+        r = m.multiply(p);
+        assertPoint3d(r, 2, 3, 7);
+    }
+
     private void assertPoint3d(Point3d p, double... ds) {
         double eps = 1e-7;
         assertEquals(ds[0], p.x(), eps);
