@@ -289,6 +289,18 @@ public class MatrixTest {
         var v = Vector.for3d(-4, 6, 8);
         var scaled = m.multiply(v);
         assertEquals(Vector.for3d(-8, 18, 32), scaled);
+
+        var rscale = m.invert();
+        var w = rscale.multiply(v);
+        assertEquals(Vector.for3d(-2, 2, 2), w);
+    }
+
+    @Test
+    public void reflection() {
+        var m = Matrix.scaling(-1, 1, 1);
+        var p = new Point3d(2, 3, 4);
+        var r = m.multiply(p);
+        assertEquals(new Point3d(-2, 3, 4), r);
     }
 
     private void assertRowEquals(Matrix c, int row, double eps, double... doubles) {
