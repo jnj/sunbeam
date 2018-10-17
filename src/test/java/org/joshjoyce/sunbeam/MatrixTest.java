@@ -313,6 +313,9 @@ public class MatrixTest {
         Point3d full = full_quarter.multiply(p);
         assertPoint3d(half, 0, x, x);
         assertPoint3d(full, 0, 0, 1);
+
+        var half_inv = half_quarter.invert().multiply(p);
+        assertPoint3d(half_inv, 0, x, -x);
     }
 
     private void assertPoint3d(Point3d p, double... ds) {
