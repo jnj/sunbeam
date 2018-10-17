@@ -3,16 +3,14 @@ package org.joshjoyce.sunbeam;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Vector {
-    public final double[] components;
+public class Vector extends DoubleTuple {
 
-    public static Vector for3d(double x, double y, double z) {
-        return new Vector(new double[]{x, y, z});
+    public Vector(double... ds) {
+        super(ds);
     }
 
-    public Vector(double[] ds) {
-        components = new double[ds.length];
-        System.arraycopy(ds, 0, components, 0, ds.length);
+    public static Vector for3d(double x, double y, double z) {
+        return new Vector(x, y, z, 0.0);
     }
 
     public Vector negate() {
@@ -110,7 +108,7 @@ public class Vector {
 
     @Override
     public int hashCode() {
-        return Objects.hash(components);
+        return Objects.hashCode(components);
     }
 
     @Override

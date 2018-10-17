@@ -13,6 +13,14 @@ public class Matrix {
         this.elements = new double[width * height];
     }
 
+    public static Matrix translation(double x, double y, double z) {
+        var m = identity(4);
+        m.set(0, 3, x);
+        m.set(1, 3, y);
+        m.set(2, 3, z);
+        return m;
+    }
+
     public static Matrix identity(int length) {
         var m = new Matrix(length, length);
 
@@ -111,15 +119,33 @@ public class Matrix {
         return product;
     }
 
+    public Point3d multiply(Point3d p) {
+        var product = new double[3];
+
+        for (int i = 0; i < product.length; i++) {
+            var sum = 0D;
+
+            for (int j = 0; j < width; j++) {
+                var v = get(i, j);
+                var c = p.get(j);
+                sum += v * c;
+            }
+
+            product[i] = sum;
+        }
+
+        return new Point3d(product[0], product[1], product[2]);
+    }
+
     public Vector multiply(Vector b) {
         var product = new double[b.size()];
 
         for (int i = 0; i < product.length; i++) {
-            double sum = 0;
+            var sum = 0D;
 
             for (int j = 0; j < width; j++) {
-                double v = get(i, j);
-                double c = b.components[j];
+                var v = get(i, j);
+                var c = b.components[j];
                 sum += v * c;
             }
 

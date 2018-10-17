@@ -6,9 +6,9 @@ public class Simulation {
         var p = new Projectile(new Point3d(0, 1, 0), Vector.for3d(1, 1.8, 0).normalize().scale(11.25));
         var w = new SimWorld(Vector.for3d(-0.01, 0, 0), Vector.for3d(0, -0.1, 0));
         var yellow = new RgbColor(1, 1, 0);
-        while (p.point.y >= 0) {
+        while (p.point.y() >= 0) {
             p = tick(w, p);
-            canvas.setPixel((int) p.point.x, (int) p.point.y, yellow);
+            canvas.setPixel((int) p.point.x(), (int) p.point.y(), yellow);
         }
     }
 

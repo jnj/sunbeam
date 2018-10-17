@@ -59,10 +59,10 @@ public class MatrixTest {
         a.setRow(1, 2, 4, 4, 2);
         a.setRow(2, 8, 6, 4, 1);
         a.setRow(3, 0, 0, 0, 1);
-        var b = new Vector(new double[]{1, 2, 3, 1});
+        var b = new Vector(1, 2, 3, 1);
         Vector v = a.multiply(b);
         assertEquals(4, v.size());
-        assertEquals(new Vector(new double[]{18, 24, 33, 1}), v);
+        assertEquals(new Vector(18, 24, 33, 1), v);
     }
 
     @Test
@@ -262,6 +262,18 @@ public class MatrixTest {
         var m = Matrix.identity(4);
         var i = m.invert();
         System.out.println(i);
+    }
+
+    @Test
+    public void transform() {
+        var m = Matrix.translation(5, -3, 2);
+        var v = m.multiply(new Point3d(-3, 4, 5));
+        assertEquals(new Point3d(2, 1, 7), v);
+
+        Vector u = Vector.for3d(-3, 4, 5);
+        var w = m.multiply(u);
+        assertEquals(u, w);
+
     }
 
     private void assertRowEquals(Matrix c, int row, double eps, double... doubles) {
