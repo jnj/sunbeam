@@ -378,6 +378,17 @@ public class MatrixTest {
         assertPoint3d(r, 2, 3, 7);
     }
 
+    @Test
+    public void chainedTransformationsAppliedInReverse() {
+        var p = new Point3d(1, 0, 1);
+        var a = Matrix.rotateX(Math.PI / 2);
+        var b = Matrix.scaling(5, 5, 5);
+        var c = Matrix.translation(10, 5, 7);
+        var t = c.multiply(b).multiply(a);
+        var r = t.multiply(p);
+        assertPoint3d(r, 15, 0, 7);
+    }
+
     private void assertPoint3d(Point3d p, double... ds) {
         double eps = 1e-7;
         assertEquals(ds[0], p.x(), eps);
