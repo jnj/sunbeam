@@ -27,6 +27,28 @@ public class Matrix {
         return m;
     }
 
+    public static Matrix rotateY(double radians) {
+        var m = identity(4);
+        var cosTheta = cos(radians);
+        var sinTheta = sin(radians);
+        m.set(0, 0, cosTheta);
+        m.set(0, 2, sinTheta);
+        m.set(2, 0, -sinTheta);
+        m.set(2, 2, cosTheta);
+        return m;
+    }
+
+    public static Matrix rotateZ(double radians) {
+        var m = identity(4);
+        var cosTheta = cos(radians);
+        var sinTheta = sin(radians);
+        m.set(0, 0, cosTheta);
+        m.set(1, 0, sinTheta);
+        m.set(0, 1, -sinTheta);
+        m.set(1, 1, cosTheta);
+        return m;
+    }
+
     public static Matrix scaling(double x, double y, double z) {
         var m = identity(4);
         m.set(0, 0, x);

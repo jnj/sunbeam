@@ -318,6 +318,33 @@ public class MatrixTest {
         assertPoint3d(half_inv, 0, x, -x);
     }
 
+    @Test
+    public void yRotation() {
+        var p = new Point3d(0, 0, 1);
+        var half_quarter = Matrix.rotateY(Math.PI / 4);
+        var full_quarter = Matrix.rotateY(Math.PI / 2);
+        var x = Math.sqrt(2) / 2.0;
+        Point3d half = half_quarter.multiply(p);
+        Point3d full = full_quarter.multiply(p);
+        assertPoint3d(half, x, 0, x);
+        assertPoint3d(full, 1, 0, 0);
+
+        var half_inv = half_quarter.invert().multiply(p);
+        assertPoint3d(half_inv, -x, 0, x);
+    }
+
+    @Test
+    public void zRotation() {
+        var p = new Point3d(0, 1, 0);
+        var half_quarter = Matrix.rotateZ(Math.PI / 4);
+        var full_quarter = Matrix.rotateZ(Math.PI / 2);
+        var x = Math.sqrt(2) / 2.0;
+        Point3d half = half_quarter.multiply(p);
+        Point3d full = full_quarter.multiply(p);
+        assertPoint3d(half, -x, x, 0);
+        assertPoint3d(full, -1, 0, 0);
+    }
+
     private void assertPoint3d(Point3d p, double... ds) {
         double eps = 1e-7;
         assertEquals(ds[0], p.x(), eps);
