@@ -273,7 +273,22 @@ public class MatrixTest {
         Vector u = Vector.for3d(-3, 4, 5);
         var w = m.multiply(u);
         assertEquals(u, w);
+    }
 
+    @Test
+    public void scale() {
+        var m = Matrix.scaling(2, 3, 4);
+        var p = new Point3d(-4, 6, 8);
+        var r = m.multiply(p);
+        assertEquals(new Point3d(-8, 18, 32), r);
+    }
+
+    @Test
+    public void vectorScale() {
+        var m = Matrix.scaling(2, 3, 4);
+        var v = Vector.for3d(-4, 6, 8);
+        var scaled = m.multiply(v);
+        assertEquals(Vector.for3d(-8, 18, 32), scaled);
     }
 
     private void assertRowEquals(Matrix c, int row, double eps, double... doubles) {

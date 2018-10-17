@@ -13,6 +13,14 @@ public class Matrix {
         this.elements = new double[width * height];
     }
 
+    public static Matrix scaling(double x, double y, double z) {
+        var m = identity(4);
+        m.set(0, 0, x);
+        m.set(1, 1, y);
+        m.set(2, 2, z);
+        return m;
+    }
+
     public static Matrix translation(double x, double y, double z) {
         var m = identity(4);
         m.set(0, 3, x);
