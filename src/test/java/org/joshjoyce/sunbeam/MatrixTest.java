@@ -303,6 +303,25 @@ public class MatrixTest {
         assertEquals(new Point3d(-2, 3, 4), r);
     }
 
+    @Test
+    public void xRotation() {
+        var p = new Point3d(0, 1, 0);
+        var half_quarter = Matrix.rotateX(Math.PI / 4);
+        var full_quarter = Matrix.rotateX(Math.PI / 2);
+        var x = Math.sqrt(2) / 2.0;
+        Point3d half = half_quarter.multiply(p);
+        Point3d full = full_quarter.multiply(p);
+        assertPoint3d(half, 0, x, x);
+        assertPoint3d(full, 0, 0, 1);
+    }
+
+    private void assertPoint3d(Point3d p, double... ds) {
+        double eps = 1e-7;
+        assertEquals(ds[0], p.x(), eps);
+        assertEquals(ds[1], p.y(), eps);
+        assertEquals(ds[2], p.z(), eps);
+    }
+
     private void assertRowEquals(Matrix c, int row, double eps, double... doubles) {
         for (int j = 0; j < doubles.length; j++) {
             var d = doubles[j];

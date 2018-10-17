@@ -2,6 +2,9 @@ package org.joshjoyce.sunbeam;
 
 import java.util.Arrays;
 
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
+
 public class Matrix {
     private final int width;
     private final int height;
@@ -11,6 +14,17 @@ public class Matrix {
         this.width = width;
         this.height = height;
         this.elements = new double[width * height];
+    }
+
+    public static Matrix rotateX(double radians) {
+        var m = identity(4);
+        var cosTheta = cos(radians);
+        var sinTheta = sin(radians);
+        m.set(1, 1, cosTheta);
+        m.set(2, 1, sinTheta);
+        m.set(1, 2, -sinTheta);
+        m.set(2, 2, cosTheta);
+        return m;
     }
 
     public static Matrix scaling(double x, double y, double z) {
