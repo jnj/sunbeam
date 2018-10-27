@@ -23,5 +23,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="fastutil:fastutil:5.0.9" level="project" />
   </component>
 </module>

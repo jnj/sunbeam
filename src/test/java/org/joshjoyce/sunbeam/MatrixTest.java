@@ -311,11 +311,11 @@ public class MatrixTest {
         var x = Math.sqrt(2) / 2.0;
         Point3d half = half_quarter.multiply(p);
         Point3d full = full_quarter.multiply(p);
-        assertPoint3d(half, 0, x, x);
-        assertPoint3d(full, 0, 0, 1);
+        Assertions.assertPoint3d(half, 0, x, x);
+        Assertions.assertPoint3d(full, 0, 0, 1);
 
         var half_inv = half_quarter.invert().multiply(p);
-        assertPoint3d(half_inv, 0, x, -x);
+        Assertions.assertPoint3d(half_inv, 0, x, -x);
     }
 
     @Test
@@ -326,11 +326,11 @@ public class MatrixTest {
         var x = Math.sqrt(2) / 2.0;
         Point3d half = half_quarter.multiply(p);
         Point3d full = full_quarter.multiply(p);
-        assertPoint3d(half, x, 0, x);
-        assertPoint3d(full, 1, 0, 0);
+        Assertions.assertPoint3d(half, x, 0, x);
+        Assertions.assertPoint3d(full, 1, 0, 0);
 
         var half_inv = half_quarter.invert().multiply(p);
-        assertPoint3d(half_inv, -x, 0, x);
+        Assertions.assertPoint3d(half_inv, -x, 0, x);
     }
 
     @Test
@@ -341,8 +341,8 @@ public class MatrixTest {
         var x = Math.sqrt(2) / 2.0;
         Point3d half = half_quarter.multiply(p);
         Point3d full = full_quarter.multiply(p);
-        assertPoint3d(half, -x, x, 0);
-        assertPoint3d(full, -1, 0, 0);
+        Assertions.assertPoint3d(half, -x, x, 0);
+        Assertions.assertPoint3d(full, -1, 0, 0);
     }
 
     @Test
@@ -350,32 +350,32 @@ public class MatrixTest {
         var m = Matrix.shear(1, 0, 0, 0, 0, 0);
         var p = new Point3d(2, 3, 4);
         var r = m.multiply(p);
-        assertPoint3d(r, 5, 3, 4);
+        Assertions.assertPoint3d(r, 5, 3, 4);
 
         m = Matrix.shear(0, 1, 0, 0, 0, 0);
         p = new Point3d(2, 3, 4);
         r = m.multiply(p);
-        assertPoint3d(r, 6, 3, 4);
+        Assertions.assertPoint3d(r, 6, 3, 4);
 
         m = Matrix.shear(0, 0, 1, 0, 0, 0);
         p = new Point3d(2, 3, 4);
         r = m.multiply(p);
-        assertPoint3d(r, 2, 5, 4);
+        Assertions.assertPoint3d(r, 2, 5, 4);
 
         m = Matrix.shear(0, 0, 0, 1, 0, 0);
         p = new Point3d(2, 3, 4);
         r = m.multiply(p);
-        assertPoint3d(r, 2, 7, 4);
+        Assertions.assertPoint3d(r, 2, 7, 4);
 
         m = Matrix.shear(0, 0, 0, 0, 1, 0);
         p = new Point3d(2, 3, 4);
         r = m.multiply(p);
-        assertPoint3d(r, 2, 3, 6);
+        Assertions.assertPoint3d(r, 2, 3, 6);
 
         m = Matrix.shear(0, 0, 0, 0, 0, 1);
         p = new Point3d(2, 3, 4);
         r = m.multiply(p);
-        assertPoint3d(r, 2, 3, 7);
+        Assertions.assertPoint3d(r, 2, 3, 7);
     }
 
     @Test
@@ -386,14 +386,7 @@ public class MatrixTest {
         var c = Matrix.translation(10, 5, 7);
         var t = c.multiply(b).multiply(a);
         var r = t.multiply(p);
-        assertPoint3d(r, 15, 0, 7);
-    }
-
-    private void assertPoint3d(Point3d p, double... ds) {
-        double eps = 1e-7;
-        assertEquals(ds[0], p.x(), eps);
-        assertEquals(ds[1], p.y(), eps);
-        assertEquals(ds[2], p.z(), eps);
+        Assertions.assertPoint3d(r, 15, 0, 7);
     }
 
     private void assertRowEquals(Matrix c, int row, double eps, double... doubles) {

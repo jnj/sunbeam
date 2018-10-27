@@ -5,6 +5,8 @@ import java.util.Objects;
 
 public class Point3d extends DoubleTuple {
 
+    public static final Point3d ORIGIN = new Point3d(0, 0, 0);
+
     public Point3d(double x, double y, double z) {
         super(x, y, z, 1.0);
     }
@@ -38,7 +40,7 @@ public class Point3d extends DoubleTuple {
     }
 
     public Vector subtract(Point3d p) {
-        return new Vector(x() - p.x(), y() - p.y(), z() - p.z());
+        return Vector.for3d(x() - p.x(), y() - p.y(), z() - p.z());
     }
 
     public Point3d scale(double d) {
