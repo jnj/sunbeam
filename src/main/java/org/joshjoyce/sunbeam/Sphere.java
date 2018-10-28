@@ -1,11 +1,6 @@
 package org.joshjoyce.sunbeam;
 
-import it.unimi.dsi.fastutil.doubles.DoubleArrayList;
-import it.unimi.dsi.fastutil.doubles.DoubleList;
-
 public class Sphere {
-    private static final DoubleList EMPTY_DOUBLE_LIST = new DoubleArrayList();
-
     public final Point3d center;
     public final double radius;
 
@@ -18,7 +13,7 @@ public class Sphere {
         return new Sphere(Point3d.ORIGIN, 1);
     }
 
-    public DoubleList intersect(Ray ray) {
+    public IntersectionList intersect(Ray ray) {
         var sphereToRay = ray.origin.subtract(center);
         var a = ray.direction.dot(ray.direction);
         var b = 2 * ray.direction.dot(sphereToRay);
@@ -26,10 +21,10 @@ public class Sphere {
         var discriminant = b * b - 4 * a * c;
 
         if (discriminant < 0) {
-            return EMPTY_DOUBLE_LIST;
+            return IntersectionList.EMPTY;
         }
 
-        var list = new DoubleArrayList(2);
+        var list = new IntersectionList(2);
         var t1 = (-b - Math.sqrt(discriminant)) / (2 * a);
         var t2 = (-b + Math.sqrt(discriminant)) / (2 * a);
 
@@ -39,8 +34,8 @@ public class Sphere {
             t2 = t;
         }
 
-        list.add(t1);
-        list.add(t2);
+        list.add(new Intersection(t1, this));
+        list.add(new Intersection(t2, this));
         return list;
     }
 }
