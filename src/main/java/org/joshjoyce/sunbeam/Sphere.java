@@ -4,6 +4,8 @@ public class Sphere {
     public final Point3d center;
     public final double radius;
 
+    Matrix transformation = Matrix.identity(4);
+
     public Sphere(Point3d center, double radius) {
         this.center = center;
         this.radius = radius;
@@ -13,10 +15,15 @@ public class Sphere {
         return new Sphere(Point3d.ORIGIN, 1);
     }
 
+    public void setTransformation(Matrix m) {
+        this.transformation = m;
+    }
+
     public IntersectionList intersect(Ray ray) {
-        var sphereToRay = ray.origin.subtract(center);
-        var a = ray.direction.dot(ray.direction);
-        var b = 2 * ray.direction.dot(sphereToRay);
+        var translated = ray.transform(transformation.invert());
+        var sphereToRay = translated.origin.subtract(center);
+        var a = translated.direction.dot(translated.direction);
+        var b = 2 * translated.direction.dot(sphereToRay);
         var c = sphereToRay.dot(sphereToRay) - 1;
         var discriminant = b * b - 4 * a * c;
 

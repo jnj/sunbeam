@@ -54,4 +54,24 @@ public class SphereTest {
         assertEquals(-6, ts.get(0).t, 1e-9);
         assertEquals(-4, ts.get(1).t, 1e-9);
     }
+
+    @Test
+    public void scaledSphereIntersection() {
+        var r = new Ray(0, 0, -5, 0, 0, 1);
+        var s = Sphere.unit();
+        s.setTransformation(Matrix.scaling(2, 2, 2));
+        var inters = s.intersect(r);
+        assertEquals(2, inters.size());
+        assertEquals(3, inters.get(0).t, 1e-9);
+        assertEquals(7, inters.get(1).t, 1e-9);
+    }
+
+    @Test
+    public void translatedSphereIntersection() {
+        var r = new Ray(0, 0, -5, 0, 0, 1);
+        var s = Sphere.unit();
+        s.setTransformation(Matrix.translation(5, 0, 0));
+        var inters = s.intersect(r);
+        assertEquals(0, inters.size());
+    }
 }

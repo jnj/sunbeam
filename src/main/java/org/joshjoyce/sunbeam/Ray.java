@@ -16,5 +16,11 @@ public class Ray {
     public Point3d position(double t) {
         return origin.add(direction.scale(t));
     }
+
+    public Ray transform(Matrix m) {
+        var newOrig = m.multiply(origin);
+        var newDir = m.multiply(direction);
+        return new Ray(newOrig, newDir);
+    }
 }
 
